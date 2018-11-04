@@ -1,0 +1,12 @@
+﻿{
+  "token": "NTA3NjYwNTY4MzY3MjAyMzA4.Dr3rmw.Onq86ZBmBOSfo2mnyHImu9zqfPE",
+  "gPrefix": "-",
+  "gOwnerId": 246351017233350656,
+  "commands": {
+    "help": "Zeigt diese Hilfeseite an",
+    "downloadConfig": "Lädt die Config für den Bot herunter",
+    "uploadConfig": "Lädt die Config für den Bot hoch",
+    "resetConfig": "lädt die originale config erneut",
+    "ping": "Antwortet mit Pong!"
+  }
+}
