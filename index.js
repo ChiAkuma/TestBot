@@ -37,7 +37,7 @@ client.on("message", (message) => {
         var contents = fs.readFileSync("./ServerConfig/" + message.guild.id + "/config.json");
         var jsonContent = JSON.parse(contents);
 
-        client.user.setGame(jsonContent.prefix + "help");
+        client.user.setActivity(jsonContent.prefix + "help");
 
         if (!message.content.startsWith(jsonContent.prefix)) return;
         message.content = message.content.split(jsonContent.prefix)[1];
@@ -54,8 +54,13 @@ client.on("message", (message) => {
         if (message.content.startsWith("resetConfig")) {
 
             message.channel.send("Config wird resettet...").then((message) => {
-                fs.mkdirSync("./ServerConfig/" + guild.id);
-                fs.writeFileSync("./ServerConfig/" + guild.id + "/config.json", "{\n\"prefix\": \"-\"\n}");
+                fs.writeFileSync("./ServerConfig/" + message.guild.id + "/config.json", "{\n\"prefix\": \"-\"\n}");
+
+                var cc = fs.readFileSync("./ServerConfig/" + message.guild.id + "/config.json");
+                var jj = JSON.parse(cc);
+                cc = "";
+                jj = "";
+
                 message.delete(10000);
             });
             message.delete(10000);
@@ -82,10 +87,10 @@ client.on("message", (message) => {
                     // Continue with your processing here.
                     fs.writeFileSync("./ServerConfig/" + message.guild.id + "/config.json", file);
 
-                    var cc2 = fs.readFileSync("./ServerConfig/" + message.guild.id + "/config.json");
-                    var jj2 = JSON.parse(cc2);
-                    cc2 = "";
-                    jj2 = "";
+                    var cc = fs.readFileSync("./ServerConfig/" + message.guild.id + "/config.json");
+                    var jj = JSON.parse(cc);
+                    cc = "";
+                    jj = "";
 
                     client.user.setActivity(jj2.prefix + "help");
                 }
@@ -101,19 +106,18 @@ client.on("message", (message) => {
 
         message.channel.send("Irgendwas ist mit der Config schief gelaufen...\nConfig wird resettet...\nNachricht wird gelöscht...").then((message) => {
             console.log(err);
-            try {
-                fs.mkdirSync("./ServerConfig/" + message.guild.id);
-            } catch (err) {}
+
             fs.writeFileSync("./ServerConfig/" + message.guild.id + "/config.json", "{\n\"prefix\": \"-\"\n}");
 
-            var cc1 = fs.readFileSync("./ServerConfig/" + message.guild.id + "/config.json");
-            var jj1 = JSON.parse(cc1);
+            var cc = fs.readFileSync("./ServerConfig/" + message.guild.id + "/config.json");
+            var jj = JSON.parse(cc);
 
             client.user.setActivity(jj1.prefix + "help");
-            cc1 = "";
-            jj1 = "";
+            cc = "";
+            jj = "";
 
             message.delete(10000);
+ 
         });
     }
 
