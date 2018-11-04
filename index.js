@@ -19,7 +19,7 @@ client.on("guildCreate", (guild) => {
     fs.writeFileSync("./ServerConfig/" + guild.id + "/config.json", "{\n\"prefix\": \"-\"\n}");
 
     guild.members.get(client.user.id).setNickname("Test Bot");
-    client.user.setGame("-help");
+    client.user.setActivity("-help");
 });
 
 //Bot Removed From SERVER ---------------------------------------------------------------------------------------------------
@@ -81,13 +81,15 @@ client.on("message", (message) => {
                     var file = body;
                     // Continue with your processing here.
                     fs.writeFileSync("./ServerConfig/" + message.guild.id + "/config.json", file);
+
+                    var cc2 = fs.readFileSync("./ServerConfig/" + message.guild.id + "/config.json");
+                    var jj2 = JSON.parse(cc2);
+                    cc2 = "";
+                    jj2 = "";
+
+                    client.user.setActivity(jj2.prefix + "help");
                 }
             });
-
-            var contents = fs.readFileSync("./ServerConfig/" + message.guild.id + "/config.json");
-            var jsonContent = JSON.parse(contents);
-
-            client.user.setGame(jsonContent.prefix + "help");
 
             message.channel.send("Danke für den Upload. Die Einstellungen werden aktulisiert...\nDiese Nachricht vernichtet sich in 10 Sekunden!").then((message) => {
                 message.delete(10000);
@@ -103,13 +105,16 @@ client.on("message", (message) => {
                 fs.mkdirSync("./ServerConfig/" + message.guild.id);
             } catch (err) {}
             fs.writeFileSync("./ServerConfig/" + message.guild.id + "/config.json", "{\n\"prefix\": \"-\"\n}");
+
+            var cc1 = fs.readFileSync("./ServerConfig/" + message.guild.id + "/config.json");
+            var jj1 = JSON.parse(cc1);
+
+            client.user.setActivity(jj1.prefix + "help");
+            cc1 = "";
+            jj1 = "";
+
             message.delete(10000);
         });
-
-        var contents = fs.readFileSync("./ServerConfig/" + message.guild.id + "/config.json");
-        var jsonContent = JSON.parse(contents);
-
-        client.user.setGame(jsonContent.prefix + "help");
     }
 
     //Ping -------------------------------------------------------------
